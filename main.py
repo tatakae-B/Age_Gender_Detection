@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
-from age_detector import AgeDetector
+from age_gender_detector import AgeGenderDetector
 
 def main():
-    # Initialize face and age detectors
+    # Initialize face and age/gender detectors
     face_cascade = cv2.CascadeClassifier(
         cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
     )
-    age_detector = AgeDetector()
+    age_gender_detector = AgeGenderDetector()
     
     # Open webcam
     cap = cv2.VideoCapture(0)
@@ -38,13 +38,15 @@ def main():
             face_roi = frame[y:y+h, x:x+w]
             
             try:
-                # Detect age
-                age = age_detector.detect_age(face_roi)
+                # Detect age and gender
+                age = age_gender_detector.detect_age(face_roi)
+                gender = age_gender_detector.detect_gender(face_roi)
                 
-                # Display age on the frame
+                # Display age and gender on the frame
+                display_text = f'Age: {age}, Gender: {gender}'
                 cv2.putText(
                     frame, 
-                    f'Age: {age}', 
+                    display_text, 
                     (x, y-10), 
                     cv2.FONT_HERSHEY_SIMPLEX, 
                     0.9, 
@@ -52,10 +54,10 @@ def main():
                     2
                 )
             except Exception as e:
-                print(f"Error detecting age: {e}")
+                print(f"Error detecting age/gender: {e}")
         
         # Display the frame
-        cv2.imshow('Age Detection', frame)
+        cv2.imshow('Age and Gender Detection', frame)
         
         # Break loop on 'q' key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
