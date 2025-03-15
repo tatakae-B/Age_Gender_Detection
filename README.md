@@ -114,11 +114,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 [Specify your license here, e.g., MIT License]
 
-## Acknowledgments
-
-- [OpenCV](https://opencv.org/)
-- [GilLevi AgeGenderDeepLearning](https://github.com/GilLevi/AgeGenderDeepLearning)
-
 ## Disclaimer
 
 This project is for educational and research purposes. The age and gender predictions are estimations and may not always be 100% accurate.
